@@ -1,0 +1,36 @@
+head
+link(rel='stylesheet', href='/stylesheets/register.css')
+title Create Account Page
+// Page content
+.bodywrapper
+  form(method='POST' action='')
+    div
+    h3
+      | Welcome to PitchingGuru
+    h1.h1 Create an Account
+    form
+      .log-in
+        .line1
+          label Email:
+          input#email.form-control(type='text', placeholder='Email' name='email' value=(undefined===userinfo ? '' : userinfo.email))
+        .line1
+          label Name:
+          input#name.form-control(type='text', placeholder='Name' name='name' value=(undefined===userinfo ? '' : userinfo.name))
+        .line1
+          label Username:
+          input#username.form-control(type='text', placeholder='Username' name='username' value=(undefined===userinfo ? '' : userinfo.username))
+        .line1
+          label Location:
+          input#location.form-control(type='text', placeholder='City, State' name='location' value=(undefined===userinfo ? '' : userinfo.location))
+          //input.line2(type='text' name='user' placeholder='JohnDoe1')
+        .line1
+          label Password:
+          input#password.form-control(type='text', placeholder='Password' name='password' value=(undefined===userinfo ? '' : userinfo.password))
+        //.line1
+          label Confirm Password:
+          input.line2(type='text' name='pass2' placeholder='*****')
+        p
+          | Already have an account? 
+          a(href='/catalog') Log-in.
+      .form__submit-button
+        input(type='submit')

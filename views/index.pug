@@ -1,0 +1,46 @@
+head
+link(rel='stylesheet', href='/stylesheets/LogIn.css')
+title Log-in Page
+// Page content
+.bodywrapper
+  form(method='POST' action='' style='text-align: center;')
+    div
+    h3
+      | PitchingGuru
+    h1.h1 Welcome back, Log-in.
+    form
+      .log-in
+        
+            div.form-group
+              label(for='username') Username:
+              input#username.form-control(type='text', placeholder='Username' name='username' value=(undefined===userinfo ? '' : userinfo.username))
+              br
+              br
+              label(for='password') Password:
+              input#password.form-control(type='text', placeholder='Password' name='password' value=(undefined===userinfo ? '' : userinfo.password))
+              br  
+              p
+                | Need to 
+                a(href='/catalog/register') create an account?
+                a(href='/catalog/heatmap') Go to heatmap page
+            button.btn.btn-primary(type='submit') Submit 
+
+//extends layout
+//
+//block content
+//  h1= title
+//  p Welcome to #[em LocalLibrary], a very basic Express website developed as a tutorial example on the Mozilla Developer Network.
+//
+//  h1 Dynamic content
+//
+//  if error
+//    p Error getting dynamic content.
+//  else
+//    p The library has the following record counts:
+//
+//    ul
+//      li #[strong Books:] !{data.book_count}
+//      li #[strong Copies:] !{data.book_instance_count}
+//      li #[strong Copies available:] !{data.book_instance_available_count} 
+//      li #[strong Authors:] !{data.author_count}
+//      li #[strong Genres:] !{data.genre_count}
