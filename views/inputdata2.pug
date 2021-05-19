@@ -56,17 +56,13 @@ nav.side-navbar
       h5.sidenav-heading Main
       ul#side-main-menu.side-menu.list-unstyled
         li
-          a(href='index.html')
-            i.icon-home
-            | Home
+          a(href='/catalog/profile')
+            i.fa.fa-bar-chart
+            | Profile
         li.active
           a(href='/catalog/datainput')
             i.icon-form
-            | Data Input
-        li
-          a(href='/catalog/profile')
-            i.fa.fa-bar-chart
-            | Charts
+            | Pitch Input
         li
           a(href='/catalog/statsinput')
             i.fa.fa-bar-chart
@@ -228,21 +224,27 @@ nav.side-navbar
                 i.fa.fa-sign-out
   // Breadcrumb
   .breadcrumb-holder
-    .container-fluid
+    .container-fluid(style="height:75px;")
       ul.breadcrumb
         li.breadcrumb-item
           a(href='index.html') Home
-        li.breadcrumb-item.active Data Input       
+        li.breadcrumb-item.active Data Input
+    //button(style="float:right;" onclick='undo()') Remove Pitch
+    form(method='POST' action='/catalog/datainput/send' style="float:right;")
+          input#Test2(type='text' name ='Test')
+          //h3#Test(name='Test') Testing area
+          button#Test2Button(onclick='createMap()' style="background-color: #33b35a;  border-color: #33b35a; color:white; font-weight: 400;border: 1px solid transparent; padding: 0.45rem 0.75rem; font-size: 1.0rem;line-height: 1.5;    border-radius: 0; position: relative; top:-55px; left:-50px;") Submit
+    img.lzy.lazyload--done(src='https://image.flaticon.com/icons/png/128/3718/3718781.png' data-src='https://image.flaticon.com/icons/png/128/3718/3718781.png' alt='Undo' title='Undo' width='64' height='64' srcset='https://image.flaticon.com/icons/png/128/3718/3718781.png 4x' onclick='undo()' style="position:relative; top:-60px; left:-100px;float:right; height:43px; width:43px;")
+
   section.charts
     .container-fluid
       // Page Header
       header
-        //h1.h3.display Charts            
+        //h1.h3.display Charts   
       .container(style='height:1100;')
       section#main
         // <h1>Home</h1>
       //canvas#myCanvas(style='background-color: aqua' width='800' height='800')
-      
       .col-lg-4.col-md-6
       // Daily Feed Widget
       //button#add(onclick = "add()") Add link
@@ -406,7 +408,7 @@ nav.side-navbar
               option(value='Fastball') Fastball
               option(value='Curveball') Curveball
               option(value='Changeup') Changeup
-              option(value='Slider') Slider
+              //option(value='Slider') Slider
           br
           label(for = 'speed') Pitch Velocity
           input#velo(type='text' name ='speed')
@@ -415,13 +417,14 @@ nav.side-navbar
       br
       br
       br
-      form(method='POST' action='/catalog/datainput/send')
+      //BUTTONS COMMENTED OUT
+      //form(method='POST' action='/catalog/datainput/send')
           input#Test2(type='text' name ='Test')
           //h3#Test(name='Test') Testing area
           button#Test2Button(onclick='createMap()') Submit
           br
           br
-      button(onclick='undo()') Remove Pitch
+      //button(onclick='undo()') Remove Pitch
       #myDiv
       //#heatmap-container2
           img#jpg-export
@@ -430,7 +433,7 @@ nav.side-navbar
       
 
 
-  footer.main-footer
+  //footer.main-footer
     .container-fluid
       //.row
         .col-sm-6
