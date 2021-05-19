@@ -1,32 +1,14 @@
-var Book = require('../models/book');
-var Author = require('../models/author');
-var Genre = require('../models/genre');
-var BookInstance = require('../models/bookinstance');
 var UserInfo = require('../models/userinfo');
-
 var async = require('async');
 
+//render login page
 exports.index = function(req, res) {   
-    //res.render('index', { title: 'Local Library Home', error: err, data: results });
     res.render('index');
 };
 
-// Display list of all Books.
-//exports.book_list = function(req, res, next) {
-//
-//  Book.find({}, 'title author')
-//    .populate('author')
-//    .exec(function (err, list_books) {
-//      if (err) { return next(err); }
-//      //Successful, so render
-//      res.render('book_list', { title: 'Book List', book_list: list_books });
-//    });
-//    
-//};
 
 
-
-// Handle book create on POST.
+//Post function to authorize user login
 exports.login_create_post = function(req, res) {
     //Store req user name and password
     var username = req.body.username;
@@ -57,23 +39,3 @@ exports.login_create_post = function(req, res) {
           
     })   
 };
-
-//// Display book delete form on GET.
-//exports.book_delete_get = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Book delete GET');
-//};
-//
-//// Handle book delete on POST.
-//exports.book_delete_post = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Book delete POST');
-//};
-//
-//// Display book update form on GET.
-//exports.book_update_get = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Book update GET');
-//};
-//
-//// Handle book update on POST.
-//exports.book_update_post = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Book update POST');
-//};
