@@ -1,9 +1,8 @@
-var Author = require('../models/author');
 var Pitch = require('../models/pitch');
 var PlayerStats = require('../models/playerstats');
 
 
-// Display detail page for a specific Author.
+// Render stats input page
 exports.statsinput_index = function(req, res) {
     res.render('statsinput');
     //res.send("Stats input controller");
@@ -11,7 +10,7 @@ exports.statsinput_index = function(req, res) {
 };
 
 
-
+//Post function for stats input form
 exports.statsinput_create_post = function(req, res) {
      var season = req.body.season;
     var wins = req.body.wins;
@@ -28,6 +27,7 @@ exports.statsinput_create_post = function(req, res) {
     var walks = req.body.walks;
     var strikeouts = req.body.strikeouts;
     
+    
     var stats = new PlayerStats(
       {  season: season,
      wins: req.body.wins,
@@ -43,6 +43,7 @@ exports.statsinput_create_post = function(req, res) {
      homeruns: req.body.homeruns,
      walks: req.body.walks,
      strikeouts: req.body.strikeouts,
+     user:req.session.user,
       }
     );
     console.log(stats);
@@ -50,7 +51,8 @@ exports.statsinput_create_post = function(req, res) {
                if (err) { return next(err); }
                // state that the user has been sucessfully created
                
-                res.send("Success");
+                //res.send("Success");
+                res.redirect('/catalog/success');
                 //res.render('postcreated');
              }); 
     
