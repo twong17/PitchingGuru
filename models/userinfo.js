@@ -7,6 +7,17 @@ var UserInfoSchema = new Schema(
     username: {type: String, required: true},
     password: {type: String, required: true},
     name: {type: String, required: true},
+    team: {type: String, required: true},
+    position: {type: String, required: true},
+    handedness: {type: String, required: true},
+    height: {type: String, required: true},
+    weight: {type: String, required: true},
+    img: 
+    { 
+        //data: Buffer, 
+        contentType: String,
+        path: String
+    } 
 //    lastname: {type: String, required: false},
 //    email: {type: String, required: false},
 //    location: {type: String, required: false},
