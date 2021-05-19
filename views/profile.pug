@@ -41,6 +41,14 @@ script(type='text/javascript').
   console.log(fastball_data);
   var curveball_data = !{JSON.stringify(curveball_list)}
   console.log(curveball_data);
+  var changeup_data = !{JSON.stringify(changeup_list)}
+  console.log(changeup_data);
+  var fastball_months = !{JSON.stringify(fastballMonths)}
+  //console.log(fastball_months);
+  var curveball_months = !{JSON.stringify(curveMonths)}
+  //console.log(curveball_months);
+  var changeup_months = !{JSON.stringify(changeMonths)}
+  console.log(changeup_months);
 // Side Navbar
 nav.side-navbar
   .side-navbar-wrapper
@@ -48,9 +56,10 @@ nav.side-navbar
     .sidenav-header.d-flex.align-items-center.justify-content-center
       // User Info
       .sidenav-header-inner.text-center
-        img.img-fluid.rounded-circle(src='/img/degrom.png' alt='person')
+        //img.img-fluid.rounded-circle(src='/img/degrom.png' alt='person')
+        img.img-fluid.rounded-circle(src= path alt='person')
         h2.h5 #{name}
-        span New York Mets
+        span #{user.team}
       // Small Brand information, appears on minimized sidebar
       .sidenav-header-logo
         a.brand-small.text-center(href='index.html')
@@ -60,18 +69,14 @@ nav.side-navbar
     .main-menu
       h5.sidenav-heading Main
       ul#side-main-menu.side-menu.list-unstyled
-        li
-          a(href='index.html')
-            i.icon-home
-            | Home
-        li
-          a(href='/catalog/datainput')
-            i.icon-form
-            | Data Input
         li.active
           a(href='/catalog/profile')
             i.fa.fa-bar-chart
-            | Charts
+            | Profile
+        li
+          a(href='/catalog/datainput')
+            i.icon-form
+            | Pitch Input
         li
           a(href='/catalog/statsinput')
             i.fa.fa-bar-chart
@@ -259,130 +264,121 @@ nav.side-navbar
             //a(data-toggle='collapse' data-parent='#daily-feeds' href='#feeds-box' aria-expanded='true' aria-controls='feeds-box')
               i.fa.fa-angle-down
         #feeds-box.collapse.show(role='tabpanel')
-          img#profileImage.img-fluid.rounded-circle(src='/img/degrom.png' alt='person')
+          //img#profileImage.img-fluid.rounded-circle(src='/img/degrom.png' alt='person')
+          img#profileImage.img-fluid.rounded-circle(src=path alt='person')
           .feed-box
             //h1#PlayerName.playerinfo Jacob Degrom
             h1#PlayerName.playerinfo #{name}
-            h2.playerinfo Position: Starting Pitcher
-            h2.playerinfo Throws: Right
-            h2.playerinfo Height: 6-4
-            h2.playerinfo Weight: 180lb
-            h2.playerinfo Team: New York Mets
+            h2.playerinfo Position: #{user.position}
+            h2.playerinfo Throws: #{user.handedness}
+            h2.playerinfo Height: #{user.height}
+            h2.playerinfo Weight: #{user.weight}
+            h2.playerinfo Team: #{user.team}
             ul.feed-elements.list-unstyled
             
+      #myModal.modal
+        // Modal content
+        .modal-content(style="width:50%; height: 400px; overflow-y: scroll;;")
+          span.close &times;
+          br
+          br
+          h5 G -- Games Played
+          p This includes all times that the player appeared on the lineup card.  Pitchers in non-DH games that appeared on the linup card but didn't bat will still have a game in this column
+          h5 W -- Wins 
+          p A pitcher receives a win when he is the pitcher of record when his team takes the lead for good -- with a couple rare exceptions. First, a starting pitcher must pitch at least five innings (in a traditional game of nine innings or longer) to qualify for the win. If he does not, the official scorer awards the win to the most effective relief pitcher.
+          h5 L -- Losses 
+          p A pitcher receives a loss when a run that is charged to him proves to be the go-ahead run in the game, giving the opposing team a lead it never gives up. Losses are almost always paired with wins when used to evaluate a pitcher, creating a separate pitching term known as win-loss record.
+          h5 W-L% -- Winning Percentage 
+          p A pitcher's winning percentage is calculated by dividing his total number of wins by his total number of decisions (wins plus losses). Pitchers who get the win or the loss are known as the "pitchers of record" in a game, and winning percentage indicates how frequently a pitcher wins when he is the pitcher of record.
+          h5 ERA -- Earned Run Average 
+          p Earned run average represents the number of earned runs a pitcher allows per nine innings -- with earned runs being any runs that scored without the aid of an error or a passed ball. 
+          h5 GS -- Games Started 
+          p A pitcher is credited with a game started if he is the first pitcher to throw a pitch for his team in a given game. 
+          h5 SHO -- Shutouts 
+          p A starting pitcher is credited with a shutout when he pitches the entire game for a team and does not allow the opposition to score. By definition, any pitcher who throws a shutout is also awarded a win. Because he recorded every out for his team and didn't allow a run, his team could only have won.
+          h5 SV -- Saves
+          p A save is awarded to the relief pitcher who finishes a game for the winning team, under certain circumstances. A pitcher cannot receive a save and a win in the same game.  A relief pitcher recording a save must preserve his team's lead while doing one of the following: Entering the game with a lead of no more than three runs and pitch at least one inning, entering the game with the tying run in the on-deck circle, at the plate or on the bases, pitching at least three innings.
+          h5 IP -- Innings Pitched
+          p Innings pitched measures the number of innings a pitcher remains in a game. Because there are three outs in an inning, each out recorded represents one-third of an inning pitched.
+          h5 H -- Hits Allowed
+          p Total number of hits a pitcher has allowed
+          h5 ER -- Earned Runs Allowed
+          p An earned run is any run that scores against a pitcher without the benefit of an error or a passed ball. Often, it is the judgment of the official scorer as to whether a specific run would've scored without the defensive mishap. If a pitcher exits a game with runners on base, any earned runs scored by those runners will count against him.
+          h5 HR -- Home Runs Allowed
+          p Total number of home runs a pitcher has allowed
+          h5 BB -- Walks Allowed
+          p Total number of walks a pitcher has allowed
+          h5 SO -- Strikeouts
+          p A strikeout occurs when a pitcher throws any combination of three swinging or looking strikes to a hitter. (A foul ball counts as a strike, but it cannot be the third and final strike of the at-bat. A foul tip, which is caught by the catcher, is considered a third strike.)
+          h5 SO9 -- Strikeouts Per Nine Innings
+          p K/9 rate measures how many strikeouts a pitcher averages for every nine innings pitched. It is determined by dividing his strikeout total by his innings pitched total and multiplying the result by nine.
+          h5 HR9 -- Home Runs Per Nine Innings
+          p HR/9 represents the average number of home runs allowed by a pitcher on a nine-inning scale. The statistic is determined by dividing a pitcher's home runs allowed by his total innings pitched and multiplying the result by nine.
+          h5 BB9 -- Walks Per Nine Innnings
+          p Walks per nine innings tells us how many walks a given pitcher allows per nine innings pitched -- using the formula walks divided by innings times nine.
+          
+              
         
       .stats-table
         .card
             .card-header
+              p(style= "color:#66b0ff; cursor: pointer; text-decoration: underline; font-size: .8em;").glossary-header Glossary
               h4 Stats
             .card-body
               .table-responsive
                 table.table.table-striped
-                  thead
-                    tr
-                      th Season
-                      th W
-                      th L
-                      th W-L%
-                      th ERA
-                      th G
-                      th GS
-                      th SHO
-                      th SV
-                      th IP
-                      th H
-                      th R
-                      th ER
-                      th HR
-                      th BB
-                      th SO
-                      th HR9
-                      th BB9
-                      th SO9  
-                  tbody
-                    each element in stats_list
+                  if(stats_list.length == 0)
+                    .inline(style="display:inline")
+                        h5(style="display:inline;") No information to show.  Visit the 
+                        a( href="/catalog/statsinput" style="display:inline; color:#66b0ff; text-decoration: underline;") stats input page 
+                        h5(style="display:inline;") to enter pitch information
+                  else
+                      thead
                         tr
-                          th(scope='row') #{element.season}
-                          td #{element.wins}
-                          td #{element.losses}
-                          //td #{element.wins/element.losses}
-                          td #{element.win_loss_pct}
-                          td #{element.era}
-                          td #{element.games}
-                          td #{element.games_started}
-                          td #{element.shutouts}
-                          td #{element.saves}
-                          td #{element.innings}
-                          td #{element.hits}
-                          td #{element.runs}
-                          td #{element.earned_runs}
-                          td #{element.homeruns}
-                          td #{element.walks}
-                          td #{element.strikeouts}
-                          td #{element.homeruns_per_nine}
-                          td #{element.walks_per_nine}
-                          td #{element.strikeouts_per_nine}
+                          th Season
+                          th W
+                          th L
+                          th W-L%
+                          th ERA
+                          th G
+                          th GS
+                          th SHO
+                          th SV
+                          th IP
+                          th H
+                          th R
+                          th ER
+                          th HR
+                          th BB
+                          th SO
+                          th HR9
+                          th BB9
+                          th SO9  
+                      tbody
+                        each element in stats_list
+                            tr
+                              th(scope='row') #{element.season}
+                              td #{element.wins}
+                              td #{element.losses}
+                              //td #{element.wins/element.losses}
+                              td #{element.win_loss_pct}
+                              td #{element.era}
+                              td #{element.games}
+                              td #{element.games_started}
+                              td #{element.shutouts}
+                              td #{element.saves}
+                              td #{element.innings}
+                              td #{element.hits}
+                              td #{element.runs}
+                              td #{element.earned_runs}
+                              td #{element.homeruns}
+                              td #{element.walks}
+                              td #{element.strikeouts}
+                              td #{element.homeruns_per_nine}
+                              td #{element.walks_per_nine}
+                              td #{element.strikeouts_per_nine}
                         
-                //tr
-                  th(scope='row') 2018
-                  td 10
-                  td 9
-                  td .526
-                  td 1.70
-                  td 32
-                  td 32
-                  td 0
-                  td 0
-                  td 217.0
-                  td 152
-                  td 48
-                  td 41
-                  td 10
-                  td 46
-                  td 269
-                  td 0.4
-                  td 1.9
-                  td 11.2
-                //tr
-                  th(scope='row') 2019
-                  td 11
-                  td 8
-                  td .579
-                  td 2.43
-                  td 32
-                  td 32
-                  td 0
-                  td 0
-                  td 204.0
-                  td 154
-                  td 59
-                  td 55
-                  td 19
-                  td 44
-                  td 255
-                  td 0.8
-                  td 1.9
-                  td 13.8
-                //tr
-                  th(scope='row') 2020
-                  td 4
-                  td 2
-                  td .667
-                  td 2.38
-                  td 12
-                  td 12
-                  td 0
-                  td 0
-                  td 68.0
-                  td 47
-                  td 21
-                  td 18
-                  td 7
-                  td 18
-                  td 104
-                  td 0.9
-                  td 2.4
-                  td 13.8   
+
       // Daily Feed Widget End
       br
       br
@@ -411,15 +407,41 @@ nav.side-navbar
       br
       br
       br
-      .heatmapWrapper
-          #heatmapContainer3
-              h1 Fastball
-              img#jpg-export
-              .rectangle
-          #heatmapContainer4
-              h1 Curveball
-              img#jpg-export2
-              .rectangle2
+      if(fastball_av.length != 0) 
+              .heatmapWrapper
+                  #heatmapContainer3
+                      h1 Fastball
+                      img#jpg-export
+                      .rectangle
+                  if(curveball_av.length != 0)
+                      #heatmapContainer4
+                          h1 Curveball
+                          img#jpg-export2
+                          .rectangle2
+                  if(changeup_list.length != 0)
+                      #heatmapContainer5
+                          h1 Changeup
+                          img#jpg-export3
+                          .rectangle3
+      else 
+        .inline(style="display:inline; margin-left:30%;")
+                        h5(style="display:inline;") No information to show.  Visit the 
+                        a( href="/catalog/datainput" style="display:inline; color:#66b0ff; text-decoration: underline;") data input page 
+                        h5(style="display:inline;") to enter pitch information
+      //else if(fastball_av.length != 0 && curveball_av.length != 0)
+              #heatmapContainer4
+                  h1 Curveball
+                  img#jpg-export2
+                  .rectangle2
+              #heatmapContainer5
+                  h1 Curveball
+                  img#jpg-export3
+                  .rectangle3
+      //else 
+        .inline(style="display:inline; margin-left:30%;")
+                        h5(style="display:inline;") No information to show.  Visit the 
+                        a( href="/catalog/datainput" style="display:inline; color:#66b0ff; text-decoration: underline;") data input page 
+                        h5(style="display:inline;") to enter pitch information
       //#daily-feeds.card.updates.daily-feeds.heatmapscont
         #feeds-header.card-header.d-flex.justify-content-between.align-items-center
           h2.h5.display
@@ -440,28 +462,36 @@ nav.side-navbar
 
       #myDiv
       #myDiv2
+      #myDiv3
+      br
+      br
       br
       br
       br
       .section-header
-        h1#section-text Other graphs (Not implemented yet)
+        h1#section-text Pitch Information
       br
       br
       br
       br
-      
-      .row
-        .line-card.line-chart-example
-            .card-header.d-flex.align-items-center
-                h4 Pitch Velocity by Month
-            .card-body
-            canvas#lineChartExample
-        .pie-card.pie-chart-example
-            .card-header.d-flex.align-items-center
-                h4 Pitch Distribution
-            .card-body
-            .chart-container
-            canvas#pieChartExample
+      if(fastball_av.length != 0 | curveball_av.length != 0) 
+          .row
+            .line-card.line-chart-example
+                .card-header.d-flex.align-items-center
+                    h4 Pitch Velocity by Month
+                .card-body
+                canvas#lineChartExample
+            .pie-card.pie-chart-example
+                .card-header.d-flex.align-items-center
+                    h4 Pitch Distribution
+                .card-body
+                .chart-container
+                canvas#pieChartExample
+      else
+        .inline(style="display:inline; margin-left:30%;")
+                        h5(style="display:inline;") No information to show.  Visit the 
+                        a( href="/catalog/statsinput" style="display:inline; color:#66b0ff; text-decoration: underline;") stats input page 
+                        h5(style="display:inline;") to enter pitch information
       br
       br
       br
@@ -472,46 +502,428 @@ nav.side-navbar
       br
       br
       br
-        
-      .card
-            .change-table
-                .card-header
-                  h4 
-                .card-body
-                  .table-responsive
-                    table.table
-                      thead
-                        tr
-                          th Metric
-                          th 2015
-                          th 2016
-                          th +/-
-                          th 2017
-                          th +/-
-                          th 2018
-                          th +/-
-                          th 2019
-                          th +/-
-                          th 2020
-                          th +/-
-                          th 2021
-                          th +/-
-                      tbody
-                        tr
-                          th(scope='row') Fastball Velocity
-                          td 93.8
-                          td 98.1
-                          td 4.3  ↑
-                        tr
-                          th(scope='row') Offspeed Velocity
-                          td 85.8
-                          td 90.3
-                          td 4.5  ↑
-                        tr
-                          th(scope='row') Breaking Velocity
-                          td 77.8
-                          td 81
-                          td 3.2  ↑
+      if(fastball_av.length != 0 && curveball_av.length != 0) 
+          .card
+                .change-table
+                    .card-header
+                      h4 
+                    .card-body
+                      .table-responsive
+                        table.table
+                          thead
+                            tr
+                              th Metric
+                              th 2015
+                              th 2016
+                              th +/-
+                              th 2017
+                              th +/-
+                              th 2018
+                              th +/-
+                              th 2019
+                              th +/-
+                              th 2020
+                              th +/-
+                              th 2021
+                              th +/-
+                          tbody
+                            tr
+                              th(scope='row') Fastball Velocity
+                              if(fastball_av[0] == -1)
+                                td 
+                              else
+                                td #{fastball_av[0].toFixed(2)}
+
+                              if(fastball_av[1] == -1)
+                                td
+                              else 
+                                td #{fastball_av[1]}
+
+                              if(fastball_av[0]==-1 || fastball_av[1]==-1)
+                                td
+                              else if(fastball_av[0] < fastball_av[1])
+                                td #{Math.abs(fastball_av[0]-fastball_av[1]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(fastball_av[0]-fastball_av[1]).toFixed(2)} ↓ 
+
+                              if(fastball_av[2] ==-1)
+                                td
+                              else 
+                                td #{fastball_av[2].toFixed(2)}
+
+                              if(fastball_av[1]==-1 || fastball_av[2]==-1)
+                                td
+                              else if(fastball_av[1] < fastball_av[2])
+                                td #{Math.abs(fastball_av[1]-fastball_av[2]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(fastball_av[1]-fastball_av[2]).toFixed(2)} ↓ 
+
+                              if(fastball_av[3] ==-1)
+                                td
+                              else
+                                td #{fastball_av[3].toFixed(2)}
+
+                              if(fastball_av[2]==-1 || fastball_av[3]==-1)
+                                td
+                              else if(fastball_av[2] < fastball_av[3])
+                                td #{Math.abs(fastball_av[2]-fastball_av[3]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(fastball_av[2]-fastball_av[3]).toFixed(2)} ↓ 
+
+                              if(fastball_av[4] ==-1)
+                                td
+                              else
+                                td #{fastball_av[4].toFixed(2)}
+
+                              if(fastball_av[3]==-1 || fastball_av[4]==-1)
+                                td
+                              else if(fastball_av[3] < fastball_av[4])
+                                td #{Math.abs(fastball_av[3]-fastball_av[4]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(fastball_av[3]-fastball_av[4]).toFixed(2)} ↓ 
+
+                              if(fastball_av[5] ==-1)
+                                td
+                              else
+                                td #{fastball_av[5].toFixed(2)}
+
+                              if(fastball_av[4]==-1 || fastball_av[5]==-1)
+                                td
+                              else if(fastball_av[4] < fastball_av[5])
+                                td #{Math.abs(fastball_av[4]-fastball_av[5]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(fastball_av[4]-fastball_av[5]).toFixed(2)} ↓  
+
+                              if(fastball_av[6] ==-1)
+                                td
+                              else
+                                td #{fastball_av[6].toFixed(2)}
+
+                              if(fastball_av[5]==-1 || fastball_av[6]==-1)
+                                td
+                              else if(fastball_av[5] < fastball_av[6])
+                                td #{Math.abs(fastball_av[5]-fastball_av[6]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(fastball_av[5]-fastball_av[6]).toFixed(2)} ↓
+
+                            tr
+                              th(scope='row') Curveball Velocity
+                              if(curveball_av[0] == -1)
+                                td 
+                              else
+                                td #{curveball_av[0].toFixed(2)}
+
+                              if(curveball_av[1] == -1)
+                                td
+                              else 
+                                td #{curveball_av[1].toFixed(2)}
+
+                              if(curveball_av[0]==-1 || curveball_av[1]==-1)
+                                td
+                              else if(curveball_av[0] < curveball_av[1])
+                                td #{Math.abs(curveball_av[0]-curveball_av[1]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(curveball_av[0]-curveball_av[1]).toFixed(2)} ↓ 
+
+                              if(curveball_av[2] ==-1)
+                                td
+                              else 
+                                td #{curveball_av[2].toFixed(2)}
+
+                              if(curveball_av[1]==-1 || curveball_av[2]==-1)
+                                td
+                              else if(curveball_av[1] < curveball_av[2])
+                                td #{Math.abs(curveball_av[1]-curveball_av[2]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(curveball_av[1]-curveball_av[2]).toFixed(2)} ↓ 
+
+                              if(curveball_av[3] ==-1)
+                                td
+                              else
+                                td #{curveball_av[3].toFixed(2)}
+
+                              if(curveball_av[2]==-1 || curveball_av[3]==-1)
+                                td
+                              else if(curveball_av[2] < curveball_av[3])
+                                td #{Math.abs(curveball_av[2]-curveball_av[3]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(curveball_av[2]-curveball_av[3]).toFixed(2)} ↓ 
+
+                              if(curveball_av[4] ==-1)
+                                td
+                              else
+                                td #{curveball_av[4].toFixed(2)}
+
+                              if(curveball_av[3]==-1 || curveball_av[4]==-1)
+                                td
+                              else if(curveball_av[3] < curveball_av[4])
+                                td #{Math.abs(curveball_av[3]-curveball_av[4]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(curveball_av[3]-curveball_av[4]).toFixed(2)} ↓ 
+
+                              if(curveball_av[5] ==-1)
+                                td
+                              else
+                                td #{curveball_av[5].toFixed(2)}
+
+                              if(curveball_av[4]==-1 || curveball_av[5]==-1)
+                                td
+                              else if(curveball_av[4] < curveball_av[5])
+                                td #{Math.abs(curveball_av[4]-curveball_av[5]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(curveball_av[4]-curveball_av[5]).toFixed(2)} ↓  
+
+                              if(curveball_av[6] ==-1)
+                                td
+                              else
+                                td #{curveball_av[6].toFixed(2)}
+
+                              if(curveball_av[5]==-1 || curveball_av[6]==-1)
+                                td
+                              else if(curveball_av[5] < curveball_av[6])
+                                td #{Math.abs(curveball_av[5]-curveball_av[6]).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(curveball_av[5]-curveball_av[6]).toFixed(2)} ↓
+                            tr
+                              th(scope='row') Era
+                              if(lastFive[0] == null)
+                                td 
+                              else
+                                td #{lastFive[0].era}
+
+                              if(lastFive[1] == null)
+                                td
+                              else 
+                                td #{lastFive[1].era}
+
+                              if(lastFive[0]==null || lastFive[1]==null)
+                                td
+                              else if(lastFive[0].era < lastFive[1].era)
+                                td #{Math.abs(lastFive[0].era-lastFive[1].era).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[0].era-lastFive[1].era).toFixed(2)} ↓ 
+
+                              if(lastFive[2] ==null)
+                                td
+                              else 
+                                td #{lastFive[2].era}
+
+                              if(lastFive[1]==null || lastFive[2]==null)
+                                td
+                              else if(lastFive[1].era < lastFive[2].era)
+                                td #{Math.abs(lastFive[1].era-lastFive[2].era).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[1].era-lastFive[2].era).toFixed(2)} ↓ 
+
+                              if(lastFive[3] ==null)
+                                td
+                              else
+                                td #{lastFive[3].era}
+
+                              if(lastFive[2]==null || lastFive[3]==null)
+                                td
+                              else if(lastFive[2].era < lastFive[3].era)
+                                td #{Math.abs(lastFive[2].era-lastFive[3].era).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[2].era-lastFive[3].era).toFixed(2)} ↓ 
+
+                              if(lastFive[4] ==null)
+                                td
+                              else
+                                td #{lastFive[4].era}
+
+                              if(lastFive[3]==null || lastFive[4]==null)
+                                td
+                              else if(lastFive[3].era < lastFive[4].era)
+                                td #{Math.abs(lastFive[3].era-lastFive[4].era).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[3].era-lastFive[4].era).toFixed(2)} ↓ 
+
+                              if(lastFive[5] ==null)
+                                td
+                              else
+                                td #{lastFive[5].era}
+
+                              if(lastFive[4]==null || lastFive[5]==null)
+                                td
+                              else if(lastFive[4].era < lastFive[5].era)
+                                td #{Math.abs(lastFive[4].era-lastFive[5].era).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[4].era-lastFive[5].era).toFixed(2)} ↓  
+
+                              if(lastFive[6] ==null)
+                                td
+                              else
+                                td #{lastFive[6].era}
+
+                              if(lastFive[5]==null || lastFive[6]==null)
+                                td
+                              else if(lastFive[5].era < lastFive[6].era)
+                                td #{Math.abs(lastFive[5].era-lastFive[6].era).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[5].era-lastFive[6].era).toFixed(2)} ↓
+                            tr
+                              th(scope='row') HR/9
+                              if(lastFive[0] == null)
+                                td 
+                              else
+                                td #{lastFive[0].homeruns_per_nine}
+
+                              if(lastFive[1] == null)
+                                td
+                              else 
+                                td #{lastFive[1].homeruns_per_nine}
+
+                              if(lastFive[0]==null || lastFive[1]==null)
+                                td
+                              else if(lastFive[0].homeruns_per_nine < lastFive[1].homeruns_per_nine)
+                                td #{Math.abs(lastFive[0].homeruns_per_nine-lastFive[1].homeruns_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[0].homeruns_per_nine-lastFive[1].homeruns_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[2] ==null)
+                                td
+                              else 
+                                td #{lastFive[2].homeruns_per_nine}
+
+                              if(lastFive[1]==null || lastFive[2]==null)
+                                td
+                              else if(lastFive[1].homeruns_per_nine < lastFive[2].homeruns_per_nine)
+                                td #{Math.abs(lastFive[1].homeruns_per_nine-lastFive[2].homeruns_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[1].homeruns_per_nine-lastFive[2].homeruns_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[3] ==null)
+                                td
+                              else
+                                td #{lastFive[3].homeruns_per_nine}
+
+                              if(lastFive[2]==null || lastFive[3]==null)
+                                td
+                              else if(lastFive[2].homeruns_per_nine < lastFive[3].homeruns_per_nine)
+                                td #{Math.abs(lastFive[2].homeruns_per_nine-lastFive[3].homeruns_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[2].homeruns_per_nine-lastFive[3].homeruns_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[4] ==null)
+                                td
+                              else
+                                td #{lastFive[4].homeruns_per_nine}
+
+                              if(lastFive[3]==null || lastFive[4]==null)
+                                td
+                              else if(lastFive[3].homeruns_per_nine < lastFive[4].homeruns_per_nine)
+                                td #{Math.abs(lastFive[3].homeruns_per_nine-lastFive[4].homeruns_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[3].homeruns_per_nine-lastFive[4].homeruns_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[5] ==null)
+                                td
+                              else
+                                td #{lastFive[5].homeruns_per_nine}
+
+                              if(lastFive[4]==null || lastFive[5]==null)
+                                td
+                              else if(lastFive[4].homeruns_per_nine < lastFive[5].homeruns_per_nine)
+                                td #{Math.abs(lastFive[4].homeruns_per_nine-lastFive[5].homeruns_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[4].homeruns_per_nine-lastFive[5].homeruns_per_nine).toFixed(2)} ↓  
+
+                              if(lastFive[6] ==null)
+                                td
+                              else
+                                td #{lastFive[6].homeruns_per_nine}
+
+                              if(lastFive[5]==null || lastFive[6]==null)
+                                td
+                              else if(lastFive[5].homeruns_per_nine < lastFive[6].homeruns_per_nine)
+                                td #{Math.abs(lastFive[5].homeruns_per_nine-lastFive[6].homeruns_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[5].homeruns_per_nine-lastFive[6].homeruns_per_nine).toFixed(2)} ↓
+                            tr
+                              th(scope='row') SO/9
+                              if(lastFive[0] == null)
+                                td 
+                              else
+                                td #{lastFive[0].strikeouts_per_nine}
+
+                              if(lastFive[1] == null)
+                                td
+                              else 
+                                td #{lastFive[1].strikeouts_per_nine}
+
+                              if(lastFive[0]==null || lastFive[1]==null)
+                                td
+                              else if(lastFive[0].strikeouts_per_nine < lastFive[1].strikeouts_per_nine)
+                                td #{Math.abs(lastFive[0].strikeouts_per_nine-lastFive[1].strikeouts_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[0].strikeouts_per_nine-lastFive[1].strikeouts_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[2] ==null)
+                                td
+                              else 
+                                td #{lastFive[2].strikeouts_per_nine}
+
+                              if(lastFive[1]==null || lastFive[2]==null)
+                                td
+                              else if(lastFive[1].strikeouts_per_nine < lastFive[2].strikeouts_per_nine)
+                                td #{Math.abs(lastFive[1].strikeouts_per_nine-lastFive[2].strikeouts_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[1].strikeouts_per_nine-lastFive[2].strikeouts_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[3] ==null)
+                                td
+                              else
+                                td #{lastFive[3].strikeouts_per_nine}
+
+                              if(lastFive[2]==null || lastFive[3]==null)
+                                td
+                              else if(lastFive[2].strikeouts_per_nine < lastFive[3].strikeouts_per_nine)
+                                td #{Math.abs(lastFive[2].strikeouts_per_nine-lastFive[3].strikeouts_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[2].strikeouts_per_nine-lastFive[3].strikeouts_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[4] ==null)
+                                td
+                              else
+                                td #{lastFive[4].strikeouts_per_nine}
+
+                              if(lastFive[3]==null || lastFive[4]==null)
+                                td
+                              else if(lastFive[3].strikeouts_per_nine < lastFive[4].strikeouts_per_nine)
+                                td #{Math.abs(lastFive[3].strikeouts_per_nine-lastFive[4].strikeouts_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[3].strikeouts_per_nine-lastFive[4].strikeouts_per_nine).toFixed(2)} ↓ 
+
+                              if(lastFive[5] ==null)
+                                td
+                              else
+                                td #{lastFive[5].strikeouts_per_nine}
+
+                              if(lastFive[4]==null || lastFive[5]==null)
+                                td
+                              else if(lastFive[4].strikeouts_per_nine < lastFive[5].strikeouts_per_nine)
+                                td #{Math.abs(lastFive[4].strikeouts_per_nine-lastFive[5].strikeouts_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[4].strikeouts_per_nine-lastFive[5].strikeouts_per_nine).toFixed(2)} ↓  
+
+                              if(lastFive[6] ==null)
+                                td
+                              else
+                                td #{lastFive[6].strikeouts_per_nine}
+
+                              if(lastFive[5]==null || lastFive[6]==null)
+                                td
+                              else if(lastFive[5].strikeouts_per_nine < lastFive[6].strikeouts_per_nine)
+                                td #{Math.abs(lastFive[5].strikeouts_per_nine-lastFive[6].strikeouts_per_nine).toFixed(2)} ↑    
+                              else
+                                td #{Math.abs(lastFive[5].strikeouts_per_nine-lastFive[6].strikeouts_per_nine).toFixed(2)} ↓
+                            
+      else
+        .inline(style="display:inline; text-align:center; margin-left:30%;")
+            h5(style="display:inline;") No information to show.  Visit the 
+            a( href="/catalog/statsinput" style="display:inline; color:#66b0ff; text-decoration: underline;") stats input page 
+            h5(style="display:inline;") to enter pitch information
       //#heatmap-container2
           h1#fastball Fastball
           h1#curveball Curveball
