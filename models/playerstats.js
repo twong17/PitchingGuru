@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var PlayerStatsSchema = new Schema(
   {
-    season: {type: String, required: true},
+    season: {type: Number, required: true},
     wins: {type: Number, required: false},
     losses: {type: Number, required: false},
     innings: {type: Number, required: false},
@@ -17,7 +17,8 @@ var PlayerStatsSchema = new Schema(
     earned_runs: {type: Number, required: false},
     strikeouts: {type: Number, required: false},
     walks: {type: Number, required: false},
-    homeruns: {type: Number, required: false}
+    homeruns: {type: Number, required: false},
+    user: {type: Schema.Types.ObjectId, ref: 'UserInfo'},
 //    firstname: {type: String, required: false},
 //    lastname: {type: String, required: false},
 //    email: {type: String, required: false},
