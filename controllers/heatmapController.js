@@ -1,4 +1,3 @@
-var Author = require('../models/author');
 var Pitch = require('../models/pitch');
 
 
@@ -16,11 +15,9 @@ exports.heatmap_create_post = function(req, res) {
     console.log(typeof num);
     var obj = JSON.parse(num);
     console.log(typeof obj);
-    console.log("Hi");
 //    for (x in obj) {
 //      console.log(obj[x]);
 //    }
-    res.send("hi");
     
 //    var pitch = new Pitch(
 //      { username: req.body.username,
